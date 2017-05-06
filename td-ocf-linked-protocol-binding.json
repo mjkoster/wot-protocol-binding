@@ -1,0 +1,29 @@
+{
+  "semtype": ["thing", "sch:light"],
+  "name": "Example Light Thing",
+  "interactions": [
+    {
+      "semtype": ["action", "sch:setlevel"],
+      "name": "set brightness level",
+      "inputdata": {
+        "type": "object",
+        "properties": {
+          "targetlevel": {
+            "type": "number",
+            "semtype": "sch:level"
+          },
+          "ramptime": {
+            "type": "number",
+            "semtype": "sch:transitiontime"
+          }
+        }
+      },
+      "links": [
+        {
+          "href": "/example/light/",
+          "protocolbinding": "http://example.com/bindings/ocf.light.setlevel"
+        }
+      ]
+    }
+  ]
+}

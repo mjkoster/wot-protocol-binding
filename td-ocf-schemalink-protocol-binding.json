@@ -1,0 +1,20 @@
+{
+  "semtype": ["thing", "sch:light"],
+  "name": "Example Light Thing",
+  "interactions": [
+    {
+      "semtype": ["action", "sch:setlevel"],
+      "name": "set brightness level",
+      "inputdata": "http://example.com/schemas/light.setlevel.json",
+      "links": [
+        {
+          "href": "/example/light/",
+          "method": "ocf.update",
+          "ocf.rt": ["oic.r.light"],
+          "ocf.if": ["oic.if.b"],
+          "inputschema": "http://example.com/schemas/ocf.light.brightness.json"
+        }
+      ]
+    }
+  ]
+}
