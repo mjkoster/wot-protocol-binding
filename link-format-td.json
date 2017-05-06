@@ -1,0 +1,48 @@
+[
+  {
+    "anchor": "coap://example.com:5683/",
+    "rel": ["self", "wot.thing"],
+    "href": "",
+    "title": "OCF Temperature Example"
+  },
+  {
+    "rel": ["describedby"],
+    "href": "http://w3c.github.io/wot/w3c-wot-td-context.jsonld"
+  },
+  {
+    "rel": ["describedby"],
+    "href": "http://iot.schema.example.org/schemas/context.jsonld"
+  },
+  {
+    "href": "temperature",
+    "rel": ["wot:property", "sch:temperature"],
+	  "title": "Storage Temperature",
+    "outputdata": "http://ref-to-schema",
+    "mediatype": "application/vnd.ocf+cbor",
+		"method": ["ocf.retrieve"],
+		"rt": ["oic.r.temperature"],
+		"if": ["oic.if.a"],
+		"outputschema": "http://ref-to-schema"
+  },
+  {
+    "href": "temperature",
+    "rel": ["wot:action", "sch:change", "sch:temperature"],
+	  "title": "Change Storage Temperature",
+    "inputdata": "http://ref-to-schema",
+    "mediatype": "application/vnd.ocf+cbor",
+		"method": ["ocf.update"],
+		"rt": ["oic.r.temperature"],
+		"if": ["oic.if.a"],
+		"inputschema": "http://ref-to-schema"
+  },
+  {
+    "href": "alerts/lowtemperature",
+    "rel": ["wot:event", "sch:alert"],
+	  "title": "Low Storage Temperature Alert",
+    "outputdata": "http://ref-to-schema",
+    "mediatype": "application/vnd.ocf+cbor",
+		"method": ["ocf.observe"],
+		"rt": ["oic.r.eventsource"],
+		"if": ["oic.if.r"],
+  }
+]
