@@ -21,7 +21,7 @@
       "links": [
         {
           "href": "/example/light/",
-          "protocolbinding": "http://example.com/bindings/ocf.light.setlevel"
+          "protocolbinding": "ref-to-binding"
         }
       ]
     }

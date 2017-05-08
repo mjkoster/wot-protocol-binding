@@ -17,32 +17,65 @@
     "href": "temperature",
     "rel": ["wot:property", "sch:temperature"],
 	  "title": "Storage Temperature",
-    "outputdata": "ref-to-outputdata-schema",
     "mediatype": "application/vnd.ocf+cbor",
 		"method": ["ocf.retrieve"],
 		"rt": ["oic.r.temperature"],
 		"if": ["oic.if.a"],
-		"outputschema": "ref-to-output-schema"
   },
   {
     "href": "temperature",
     "rel": ["wot:action", "sch:change", "sch:temperature"],
 	  "title": "Change Storage Temperature",
-    "inputdata": "ref-to-inputdata-schema",
     "mediatype": "application/vnd.ocf+cbor",
 		"method": ["ocf.update"],
 		"rt": ["oic.r.temperature"],
 		"if": ["oic.if.a"],
-		"inputschema": "ref-to-input-schema"
+  },
+  {
+    "anchor": "temperature",
+    "rel": "schema",
+    "href": "tempschema",
+    "mediatype": "application/schema+json"
   },
   {
     "href": "alerts/lowtemperature",
     "rel": ["wot:event", "sch:alert"],
 	  "title": "Low Storage Temperature Alert",
-    "outputdata": "ref-to-outputdata-schema",
     "mediatype": "application/vnd.ocf+cbor",
 		"method": ["ocf.observe"],
 		"rt": ["oic.r.eventsource"],
 		"if": ["oic.if.r"],
-  }
+  },
+  {
+    "anchor": "alerts/lowtemperature",
+    "rel": "schema",
+    "href": "alertschema",
+    "mediatype": "application/schema+json"
+  },
 ]
+
+{
+  "title": "Here are the schema examples for the link-format TD"
+},
+{
+  "id": "tempschema",
+  "properties": {
+    "temperature": {
+      "semtype": "sch:temperature",
+      "type": "number"
+    }
+  }
+},
+{
+  "id": "alertschema",
+  "properties": {
+    "alert.type": {
+      "type": "string",
+      "value": "Low Temperature"
+    },
+    "temperature": {
+      "semtype": "sch:temperature",
+      "type": "number"
+    }
+  }
+}

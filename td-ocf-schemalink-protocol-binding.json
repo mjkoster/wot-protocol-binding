@@ -5,14 +5,14 @@
     {
       "semtype": ["action", "sch:setlevel"],
       "name": "set brightness level",
-      "inputdata": "http://example.com/schemas/light.setlevel.json",
+      "inputdata": "ref-to-inputdata-schema",
       "links": [
         {
           "href": "/example/light/",
           "method": "ocf.update",
           "ocf.rt": ["oic.r.light"],
           "ocf.if": ["oic.if.b"],
-          "inputschema": "http://example.com/schemas/ocf.light.brightness.json"
+	      	"inputschema": "ref-to-input-schema"
         }
       ]
     }
