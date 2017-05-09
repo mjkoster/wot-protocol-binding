@@ -1,6 +1,7 @@
 {
   "semtype": ["thing", "sch:light"],
   "name": "Example Light Thing",
+  "base": "coaps://[fdca::17]:5683",
   "interactions": [
     {
       "semtype": ["property", "sch:level"],
@@ -17,6 +18,7 @@
       "links": [
         {
           "href": "/example/light/brightness",
+          "mediatype:": "application/vnd.ocf+cbor",
           "ocf.rt": ["oic.r.light.brightness"],
           "ocf.if": ["oic.if.s"],
           "outputschema": {
@@ -50,6 +52,7 @@
       "links": [
         {
           "href": "/example/light/",
+          "mediatype:": "application/vnd.ocf+cbor",
           "method": "ocf.update",
           "ocf.rt": ["oic.r.light"],
           "ocf.if": ["oic.if.b"],

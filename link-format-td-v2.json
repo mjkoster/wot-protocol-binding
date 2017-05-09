@@ -52,30 +52,39 @@
     "href": "alertschema",
     "mediatype": "application/schema+json"
   },
+  {
+    "anchor": "alerts/lowtemperature",
+    "rel": ["alternate"],
+    "href": "mqtt://0m2m.net:22017/alerts/json/lowtemperature",
+    "method": "mqtt.subscribe",
+    "mediatype": "application/json"
+  }
 ]
 
-{
-  "title": "Here are the schema examples for the link-format TD"
-},
-{
-  "id": "tempschema",
-  "properties": {
-    "temperature": {
-      "semtype": "sch:temperature",
-      "type": "number"
+[
+  {
+    "title": "Here are the schema examples for the link-format TD"
+  },
+  {
+    "id": "coap://example.com:5683/tempschema",
+    "properties": {
+      "temperature": {
+        "semtype": "sch:temperature",
+        "type": "number"
+      }
+    }
+  },
+  {
+    "id": "coap://example.com:5683/alertschema",
+    "properties": {
+      "alert.type": {
+        "type": "string",
+        "value": "Low Temperature"
+      },
+      "temperature": {
+        "semtype": "sch:temperature",
+        "type": "number"
+      }
     }
   }
-},
-{
-  "id": "alertschema",
-  "properties": {
-    "alert.type": {
-      "type": "string",
-      "value": "Low Temperature"
-    },
-    "temperature": {
-      "semtype": "sch:temperature",
-      "type": "number"
-    }
-  }
-}
+]
