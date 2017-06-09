@@ -17,8 +17,8 @@
       "links": [
         {
           "href": "/example/light/brightness",
-          "ocf.rt": ["oic.r.light.brightness"],
-          "ocf.if": ["oic.if.s"],
+          "rt": ["oic.r.light.brightness"],
+          "if": ["oic.if.s"],
           "outputschema": {
             "type": "object",
             "properties": {
@@ -51,8 +51,8 @@
         {
           "href": "/example/light/",
           "method": "ocf.update",
-          "ocf.rt": ["oic.r.light"],
-          "ocf.if": ["oic.if.b"],
+          "rt": ["oic.r.light"],
+          "if": ["oic.if.b"],
           "inputschema": {
             "type": "object",
             "properties": {
