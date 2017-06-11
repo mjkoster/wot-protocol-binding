@@ -1,0 +1,170 @@
+{
+  "semtype": ["thing", "sch:light"],
+  "name": "Example Light Thing",
+  "interactions": [
+    {
+      "semtype": ["property", "sch:switch"],
+      "name": "on/off switch state",
+      "outputdata": {
+        "type": "object",
+        "properties": {
+          "switchstate": {
+            "type": "boolean",
+            "semtype": "sch:switchstate"
+          }
+        }
+      },
+      "links": [
+        {
+          "href": "/example/light/onoff",
+          "rt": ["oic.r.binary.switch"],
+          "if": ["oic.if.a"],
+          "outputschema": {
+            "type": "object",
+            "properties": {
+              "onoff": {
+                "value": "{{switchstate}}"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "semtype": ["property", "sch:level"],
+      "name": "brightness level",
+      "outputdata": {
+        "type": "object",
+        "properties": {
+          "level": {
+            "type": "number",
+            "semtype": "sch:level"
+          }
+        }
+      },
+      "links": [
+        {
+          "href": "/example/light/brightness",
+          "rt": ["oic.r.light.brightness"],
+          "if": ["oic.if.a"],
+          "outputschema": {
+            "type": "object",
+            "properties": {
+              "brightness": {
+                "value": "{{level}}"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "semtype": ["action", "sch:turnon"],
+      "name": "turn the light on",
+      "inputdata": {
+        "type": "object",
+        "properties": {
+          "ramptime": {
+            "type": "number",
+            "semtype": "sch:transitiontime"
+          }
+        }
+      },
+      "links": [
+        {
+          "href": "/example/light/onoff",
+          "method": "ocf.update",
+          "rt": ["oic.r.binary.switch"],
+          "if": ["oic.if.a"],
+          "inputschema": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "value": true,
+              },
+              "ramptime": {
+                "value": "{{ramptime}}"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "semtype": ["action", "sch:turnoff"],
+      "name": "turn the light on",
+      "inputdata": {
+        "type": "object",
+        "properties": {
+          "ramptime": {
+            "type": "number",
+            "semtype": "sch:transitiontime"
+          }
+        }
+      },
+      "links": [
+        {
+          "href": "/example/light/onoff",
+          "method": "ocf.update",
+          "rt": ["oic.r.binary.switch"],
+          "if": ["oic.if.a"],
+          "inputschema": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "value": false,
+              },
+              "ramptime": {
+                "value": "{{ramptime}}"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "semtype": ["action", "sch:movetolevel"],
+      "name": "set brightness level",
+      "inputdata": {
+        "type": "object",
+        "properties": {
+          "targetlevel": {
+            "type": "number",
+            "semtype": "sch:level"
+          },
+          "ramptime": {
+            "type": "number",
+            "semtype": "sch:transitiontime"
+          }
+        }
+      },
+      "links": [
+        {
+          "href": "/example/light/",
+          "method": "ocf.update",
+          "rt": ["oic.r.light"],
+          "if": ["oic.if.b"],
+          "inputschema": {
+            "type": "object",
+            "properties": {
+              "href": {
+                "value": ""
+              },
+              "rep": {
+                "type": "object",
+                "properties": {
+                  "brightness": {
+                    "value": "{{targetlevel}}"
+                  },
+                  "ramptime": {
+                    "value": "{{ramptime}}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "semtype": ["thing", "sch:motionsensor"],
+  "name": "Example Motion Sensor Thing",
+  "interactions": [
+    {
+      "semtype": ["property", "sch:motiondetected"],
+      "name": "motion detected",
+      "outputdata": {
+        "type": "object",
+        "properties": {
+          "motiondetected": {
+            "type": "boolean",
+            "semtype": "sch:motiondetected"
+          }
+        }
+      },
+      "links": [
+        {
+          "href": "/example/motion/detected",
+          "rt": ["oic.r.motion"],
+          "if": ["oic.if.s"],
+          "outputschema": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "value": "{{motiondetected}}"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
