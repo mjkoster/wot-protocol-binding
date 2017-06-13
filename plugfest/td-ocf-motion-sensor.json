@@ -17,7 +17,7 @@
       "links": [
         {
           "href": "/example/motion/detected",
-          "rt": ["oic.r.motion"],
+          "rt": ["oic.r.sensor.motion"],
           "if": ["oic.if.s"],
           "outputschema": {
             "type": "object",
