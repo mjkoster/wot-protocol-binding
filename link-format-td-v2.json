@@ -33,7 +33,7 @@
   },
   {
     "anchor": "temperature",
-    "rel": "schema",
+    "rel": ["schema"],
     "href": "tempschema",
     "mediatype": "application/schema+json"
   },
@@ -48,7 +48,7 @@
   },
   {
     "anchor": "alerts/lowtemperature",
-    "rel": "schema",
+    "rel": ["schema"],
     "href": "alertschema",
     "mediatype": "application/schema+json"
   },

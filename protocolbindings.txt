@@ -1,0 +1,94 @@
+Protocol Binding Templates for Thing Description
+
+Assumptions and Design Principles
+
+1. TD Interaction Description
+The interaction description part of a Thing Description describes an event, action, or property interaction which is exposed by a thing. Each interaction description contains semantic annotation that describes the type of interaction and its application class, and one or more link elements containing URIs that point to the API entry points for the interaction.
+
+2. Protocol Binding
+Protocol bindings map abstract WoT interactions to concrete protocol operations. There is currently a set of generic REST protocol bindings for HTTP and CoAP, which are defined in the Current Practices document. The default protocol binding is determined by the URI scheme of the link (http or coap), and follows a well-defined REST API for events, actions, and properties.
+
+3. Protocol Adaptation
+Device protocols from various standards organizations have peculiar patterns for exposing the low level "traits" that the protocol uses to encapsulate and communicate information. 
+
+For example OCF Resource Types expose a REST API that uses IETF concepts of Resource Type (rt) and Interface Type (if). By contrast, LWM2M/IPSO Smart Objects expose an hierarchy of object ID (collections) and resource ID (items) where the ID numbers provide the semantic identification. 
+
+These all may use a common communication protocol like CoAP and representation format like CBOR or JSON, but then require special options like resource type, interface type, content-formats, data types, and payload schemas. 
+
+4. Discovery
+Discovery of things and traits that map to TD interactions is outside the scope of protocol bindings as currently defined; in this specification we only cover the event, action, property part of the interaction model. 
+
+It is assumed that discovery of things on the connected device ecosystem results in a set of discoverable Thing Description instances, corresponding to the discovered things, and will then use the TD discovery mechanisms already defined in the W3C WoT WG/IG.
+
+5. TD Structure
+Except for the link element, the interaction description has the same structure for all instances of a particular thing, regardless of the protocol binding being used. The  protocol binding template is implemented as an extension to the "link" element of the interaction pattern description. 
+
+6. Input and output data
+Input and Output Data are described in the interaction description and applied to the protocol binding using the information in the "link" element as a binding template. 
+
+Any data constraints imposed by the underlying ecosystem, such has range, units, resolution/granularity must be exposed by the interaction description in the inputData and outputData elements of the Inteaction Description. The implementation may provide a means to translate and convert units and scales between the WoT Scripting API and the underlying device traits.
+
+7. Isolation
+The interaction description part and protocol template ("link") part are meant to be isolated from each other and are coupled only through the inputData and outputData elements. There must be therefore consistent labeling of data elements between the interaction description and the binding template.
+
+8. General purpose protocol driver
+There needs to be enough information in the binidng template to enable a generic protocol driver to construct requests using input data elements and parse output data elements from responses. 
+
+For example, binding templates for RESTful protocols will look like submission forms, describing the method and options to use to construct the request, as well as a structural description or template to be used to construct and parse data payloads.
+
+Design Specification
+
+1. Extension of the Interaction Description
+The interaction description contains the interaction type, additional semantic annotation for the interaction, and the input data and output data descriptors. 
+
+The inputData and outputData elements need to be able to accept multiple data items to support complex interactions. For example, an action may accept target value and transition time parameters to invoke. The implementation must pass data values between events, actions, and properties exposed to the scripting API, and the lower level traits exposed by the underlying thing protocols. This is done by labeling the data items with key names using json-schema "property" constructs. 
+
+The inputData and outputData elements may be annotated with additional value constraints that are inherited from the low level thing traits. These value constraints may be expressed in json-schema validation constructs such as minimum and maximum, minLength, maxLength, etc.. Additional constraints may be specified using appropriate json-schema validation keywords and extended keywords.
+
+2. Extension of the "link" element
+The "link" element of an interaction description points to and describes how the ecosystem specific driver is to interact with the low level thing API to carry out the interaction, e.g. set property, invoke action.
+
+For things that expose the low level protocol traits in a REST and REST-like API, the Protocol Binding is constructed somewhat like an HTML submission form. Metadata in the binding template describes which REST method to use, and any other options that are required to be transmitted in the request or parsed from the response.
+
+The example OCF protocol binding contains values for Resource Type (rt) and Interface Type (if) required to interact with the appropriate low level traits.
+
+3. WoT Client Proxy Integration Pattern
+In the client Proxy integration pattern, the WoT Consumed Thing interface is exposed as a proxy for the device or connected thing. Application middleware, for example node-wot, consumes the thing description, including the protocol binding teplates. 
+
+When an interaction is invoked, the application middleware fills out the template and uses the template to construct requests and parse responses involving the low level traits exposed by the device. The protocol binding execution may be isolated from the WoT application script execution using the protocol binding template as a well defined API payload format.
+
+4. WoT Server Proxy Integration Pattern
+In the server proxy integration pattern, the Thing Description and Protocol Binding templates are consumed by application middleware which exposes the low level device traits using the WoT Exposed Thing interface as a proxy exposing the traits using the default generic WoT HTTP or CoAP protocol binding.
+
+When an interaction is invoked using the WoT exposed thing, the middleware proxy constructs a request using the protocol binding template and processes the response using the template. The response data are returned to the requesting WoT client using the generic WoT protocol.
+
+Mapping traits to TD interactions
+
+1. Thing traits vs. actions, events, and properties
+The traits exposed by things from different device ecosystems vary considerably in the structure of the interactions and the level of semantic identification of their affordances. For example, OCF devices expose a REST API with asynchronous notification (CRUD+N) in which actions are invoked simply by setting property values. There are batch update options that allow multiple parameters to be passed using this pattern. 
+
+Since actions are not formally defined in all device ecosystems, but may be composed from updates and options, there needs to be a high level definition for actions that can be then mapped to device traits. Likewise, WoT Property get/set operations may need to have additional settings to correctly interact with the low level traits, for example using Observe/Notify or Publish/Subscribe for asynchronous interactions and event subscriptions.
+
+2. Thing Capabilities
+For the sake of interoperability, there need to be some standardized actions defined, for example to dim a light, or to turn something on and off.
+
+One approach is to create abstract capabilities that define properties and related actions and events, to accomplish a single purpose. For example, the capability to turn something on and off would be represented by a state variable property with a boolean type, a property for a delay value, and some actions to turn on, turn off, toggle, delay turn off, etc. The low level traits that are exposed by the devices are then mapped to capabilities using the TD with protocol bindings. 
+
+For example, the on/off capability "switch" is defined with a state property of type boolean, and two actions, one for turning on and one for turning off. The protocol binding specifies that a boolean value of true is applied to the state property for the turn on action, and a boolean value of false is applied for a turn off action.
+
+These capabilities may be defined as constructions of semantic identifiers from various ontologies and vocabularies. 
+
+The examples are based on on/off, level control, and motion sensing capabilities with their respective events, actions, and properties. As illustrated by the light example, the capabilities may be composed into a TD, providing a thing that has multiple capabilities exposed through a set of well known event, action, and property types and application classes.
+
+
+Glossary
+Thing Description
+Interaction Description
+Protocol Binding
+Semantic Annotation
+Thing traits
+Capabilities
+CRUD+N
+
+
+
