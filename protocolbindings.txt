@@ -13,7 +13,7 @@ Device protocols from various standards organizations have peculiar patterns for
 
 For example OCF Resource Types expose a REST API that uses IETF concepts of Resource Type (rt) and Interface Type (if). By contrast, LWM2M/IPSO Smart Objects expose an hierarchy of object ID (collections) and resource ID (items) where the ID numbers provide the semantic identification. 
 
-These all may use a common communication protocol like CoAP and representation format like CBOR or JSON, but then require special options like resource type, interface type, content-formats, data types, and payload schemas. 
+These may all use a common communication protocol like CoAP, and representation format like CBOR or JSON, but then require special options like resource type, interface type, content-formats, data types, and payload schemas. 
 
 4. Discovery
 Discovery of things and traits that map to TD interactions is outside the scope of protocol bindings as currently defined; in this specification we only cover the event, action, property part of the interaction model. 
