@@ -3,8 +3,8 @@ Examples of payload structure variation
 Simple JSON, OCF Composite Resource Representation
 
 {
-  "brightness": 50,
-  "ramptime": 127
+  "brightness": 127,
+  "ramptime": 100
 }
 
 Input Data Element for simple payload format
@@ -48,7 +48,7 @@ OCF Batch Collection Representation
   {
     "href": "/light/ramptime",
     "rep": {
-      "ramptime:": 65535
+      "ramptime:": 100
     }
   }
 ]
@@ -69,12 +69,18 @@ Input Data Element for OCF Batch payload
           },
           {
             "name": "rep",
-            "value": {
-              "type": "integer",
-              "@type": "sch:levelvalue",
-              "min": 0,
-              "max": 255
-            }
+            "type": "object",
+            "fields": [
+              {
+                "name": "brightness",
+                "value": {
+                  "type": "integer",
+                  "@type": "sch:levelvalue",
+                  "min": 0,
+                  "max": 255
+                }
+              }
+            ]
           }
         ]
       },
@@ -87,12 +93,18 @@ Input Data Element for OCF Batch payload
           },
           {
             "name": "rep",
-            "value": {
-              "type": "integer",
-              "@type": "sch:ramptimevalue",
-              "min": 0,
-              "max": 655235
-            }
+            "type": "object",
+            "fields": [
+              {
+                "name": "ramptime",
+                "value": {
+                  "type": "integer",
+                  "@type": "sch:ramptimevalue",
+                  "min": 0,
+                  "max": 65535
+                }
+              }
+            ]
           }
         ]
       }
@@ -158,7 +170,7 @@ Input Data Element for IPSO/LWM2M payload
                   "type": "float",
                   "@type": "sch:ramptimevalue",
                   "min": 0.0,
-                  "max": 1.0
+                  "max": 6553.5
                 }
               }
             ]
