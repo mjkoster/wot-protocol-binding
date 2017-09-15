@@ -1,0 +1,170 @@
+Examples of payload structure variation
+
+Simple JSON, OCF Composite Resource Representation
+
+{
+  "brightness": 50,
+  "ramptime": 127
+}
+
+Input Data Element for simple payload format
+
+{
+  "inputData": {
+    "type": "object",
+    "fields": [
+      {
+        "name": "brightness",
+        "value": {
+          "type": "integer",
+          "@type": "sch:levelvalue",
+          "min": 0,
+          "max": 255
+        }
+      },
+      {
+        "name": "ramptime",
+        "value": {
+          "type": "integer",
+          "@type": "sch:ramptimevalue",
+          "min": 0,
+          "max": 65535
+        }
+      }
+    ]
+  }
+}
+
+
+OCF Batch Collection Representation
+
+[
+  {
+    "href": "/light/brightness",
+    "rep": {
+      "brightness:": 127
+    }
+  },
+  {
+    "href": "/light/ramptime",
+    "rep": {
+      "ramptime:": 65535
+    }
+  }
+]
+
+
+Input Data Element for OCF Batch payload
+
+{
+  "inputData": {
+    "type": "array",
+    "items": [
+      {
+        "type": "object",
+        "fields": [
+          {
+            "name": "href",
+            "value": "/light/brightness"
+          },
+          {
+            "name": "rep",
+            "value": {
+              "type": "integer",
+              "@type": "sch:levelvalue",
+              "min": 0,
+              "max": 255
+            }
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "fields": [
+          {
+            "name": "href",
+            "value": "/light/ramptime"
+          },
+          {
+            "name": "rep",
+            "value": {
+              "type": "integer",
+              "@type": "sch:ramptimevalue",
+              "min": 0,
+              "max": 655235
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+
+
+IPSO/LWM2M Representation
+
+{
+  "bn": "/3001/0/",
+  "e": [
+    {
+      "n": "5001",
+      "v": 0.5
+    },
+    {
+      "n": "5003",
+      "v": 10.0
+    }
+  ]
+}
+
+
+Input Data Element for IPSO/LWM2M payload
+
+{
+  "inputData": {
+    "type": "object",
+    "fields": [
+      {
+        "name": "bn",
+        "value": "/3001/0/"
+      },
+      {
+        "name": "e",
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "fields": [
+              {
+                "name": "n",
+                "value": "5001"
+              },
+              {
+                "name": "v",
+                "value": {
+                  "type": "float",
+                  "@type": "sch:levelvalue",
+                  "min": 0.0,
+                  "max": 1.0
+                }
+              }
+              {
+                "name": "n",
+                "value": "5003"
+              },
+              {
+                "name": "v",
+                "value": {
+                  "type": "float",
+                  "@type": "sch:ramptimevalue",
+                  "min": 0.0,
+                  "max": 1.0
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
