@@ -1,0 +1,33 @@
+Link-format serialization
+
+[
+  {
+    "href": "/light/",
+    "rel": ["self"],
+    "td:type": ["Thing", "sch:Light"]
+  },
+  {
+    "href": "/light/brightness",
+    "rel": ["interaction"],
+    "td:type": ["Property", "sch:brightness"],
+    "queryoptions": ["rt=oic.r.dimming", "if=oic.if.a"]
+  },
+  {
+    "anchor": "/light/brightness",
+    "rel": ["inputdata"],
+    "href": "http://localhost:8080/examles/light/brightness/inputdata",
+    "mediatype": "application/json"
+  },
+  {
+    "href": "/light/ramptime",
+    "rel": ["interaction"],
+    "td:type": ["Property", "sch:ramptime"],
+    "queryoptions": ["rt=oic.r.ramptime", "if=oic.if.a"]
+  },
+  {
+    "anchor": "/light/ramptime",
+    "rel": ["inputdata"],
+    "href": "http://localhost:8080/examles/light/ramptime/inputdata",
+    "mediatype": "application/json"
+  }
+]
