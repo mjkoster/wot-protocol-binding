@@ -1,0 +1,111 @@
+
+{ "comment": "http vocabulary at http://www.w3.org/2011/http#" },
+
+[
+  {
+    "http": "http://www.w3.org/2011/http#"
+  },
+  {
+    "http:methodName": "GET",
+    "http:mthd": "http://www.w3.org/2011/http-methods#GET",
+
+    "http:MessageHeader": [
+      {
+        "http:hdrName": "http://www.w3.org/2011/http-headers#accept",
+        "http:fieldName": "Accept",
+        "http:fieldValue": "application/json"
+      },
+      {
+        "http:hdrName": "http://www.w3.org/2011/http-headers#transfer-encoding",
+        "http:fieldName": "Transfer-Encoding",
+        "http:fieldValue": "chunked"
+      }
+    ],
+
+    "http:GeneralHeader": [
+      {
+        "http:hdrName": "http://www.w3.org/2011/http-headers#transfer-encoding",
+        "http:fieldName": "Transfer-Encoding",
+        "http:fieldValue": "chunked"
+      }
+    ],
+
+    "http:RequestHeader": [
+      {
+        "http:hdrName": "http://www.w3.org/2011/http-headers#accept",
+        "http:fieldName": "Accept",
+        "http:fieldValue": "application/json"
+      }
+    ],
+
+    "http:EntityHeader": [
+      {
+        "http:hdrName": "http://www.w3.org/2011/http-headers#content-length",
+        "http:fieldName": "Content-Length",
+        "http:fieldValue": 3202
+      }
+    ]
+
+  }
+],
+
+{ "comment": "CoAP example based on HTTP pattern" },
+
+[
+  {
+    "coap": "http://www.w3.org/xxxx/coap#"
+  },
+  {
+    "coap:methodName": "GET",
+    "coap:methodCode": "0.01",
+    "coap:mthd": "http://www.w3.org/xxxx/coap-methods#GET",
+
+    "coap:MessagelHeader": [
+      {
+        "coap:hdrName": "http://www.w3.org/xxxx/coap-headers#accept",
+        "coap:fieldName": "Accept",
+        "coap:fieldCodeNumber": 17,
+        "coap:fieldValue": 10000
+      },
+      {
+        "coap:hdrName": "http://www.w3.org/xxxx/coap-headers#ocf-accept-version",
+        "coap:fieldName": "OCF-Accept-Content-Format-Version",
+        "coap:fieldCodeNumber": 2049,
+        "coap:fieldValue": "1.1.0"
+      },
+      {
+        "coap:hdrName": "http://www.w3.org/xxxx/coap-headers#observe",
+        "coap:fieldName": "Observe",
+        "coap:fieldCodeNumber": 6,
+        "coap:fieldValue": 0
+      },
+    ]
+
+  }
+],
+
+{ "comment": "MQTT example based on HTTP pattern" },
+
+[
+  {
+    "mqtt": "http://www.w3.org/xxxx/mqtt#"
+  },
+  {
+    "mqtt:methodName": "PUBLISH",
+    "mqtt:mthd": "http://www.w3.org/xxxx/mqtt-methods#PUBLISH",
+
+    "mqtt:MessagelHeader": [
+      {
+        "mqtt:hdrName": "http://www.w3.org/xxxx/mqtt-headers#qos",
+        "mqtt:fieldName": "QoS",
+        "mqtt:fieldValue": 1
+      },
+      {
+        "mqtt:hdrName": "http://www.w3.org/xxxx/mqtt-headers#retain",
+        "mqtt:fieldName": "RETAIN",
+        "mqtt:fieldValue": 1
+      }
+    ]
+
+  }
+]

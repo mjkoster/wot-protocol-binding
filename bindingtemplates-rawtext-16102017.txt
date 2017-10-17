@@ -1,0 +1,222 @@
+(Abstract)
+
+W3C Web of Things enables web scale orchestration of connected things. THe common abstract interaction model exposed by WoT Thing Description enables applications to scale and evolve independently of the connected things.
+
+Many network level protocols and standards for connected things have already been developed, and have millions of devices deployed in the field today. These standards are converging on a common set of transport protocols and transfer layers, but each has peculiar content formats, payload schemas, and data types.
+
+Despite using unique formats and data models, the high level interactions exposed by most connected things can be modeled using the Event, Action, and Property Interactions of the WoT Thing Description.
+
+Protocol Binding Templates enable a Thing Description to be adapted to the specific protocol usage across the different standards. This is done through additional descriptive vocabulary that is added to the Thing Description. 
+
+This document describes the initial set of design pattern and vocabulary extensions to WoT Thing Description that make up the Protocol Binding Templates. It is expected over time that additional protocols will be accommodated by further extending the Binding Templates, adding new design patterns and new vocabulary.
+
+
+
+(Introduction to Binding Templates)
+
+Protocol Binding Templates consist of reusable vocabulary and design pattern extensions to the WoT Thing Description format that enable an application client to interact, using a consistent interaction model, with things that expose diverse protocols and protocol usage.
+
+Specifically, the Protocol Binding Template adapts to the underlying protocol in the following ways.
+
+Payload Structure
+
+The data definition language and schema of inputData and outputData elements is extended to allow nesting of arrays and objects. Value constants and variable specifications may be intermixed.
+
+Data Types and value constraints
+
+Simple data types and value constraints are already used in a layered and descriptive wayin WoT Thing Description. Additional forms of constraints are available to help adapt to the underlying data types.
+
+Media Types
+
+Maximum use should be made of Internet and Web Media Types in order to decouple applicaitons from connected things. Standard bridges and translations from proprietary early formats to web-friendly languages like JSON and XML are part of the adaptation needed.
+
+WoT Protocol Bindings depend on consistent use of Media Types for customization of the upper layers.
+
+Protocol Methods
+
+There is a relatively small set of methods that can cover most standard communication patterns, based on REST and PubSub. GET, PUT, POST, DELETE, PATCH, OBSERVE, PUBLISH,and SUBSCRIBE
+
+These are mapped to the abstract WoT interaction verbs InvokeAction, CancelAction, GetProperty, SetProperty, ObserveEvent, SubscribeEvent, UnsubscribeEvent
+
+Protocol Options
+
+Protocol Options are specified in the Protocol Binding, and are used to select transfer modes, to request notifications from observable resources, and to extend the semantics of the protocol methods. 
+
+
+
+(Binding Templates Overview)
+
+
+- Payload Structure
+
+Payload Structure is determined by the inputData and outputData elements. These share a common internal vocabulary, only being differentiated by the direction of the data transfer. An inputData binding element informs the client how to construct the data payload for a particular interaction. The outputData element informs the client how to extract information from the returned payload.
+
+In addition to the example pattern in [TD] of an object with name/value constructs or simple arrays, Protocol Bindings for existing standards require nested arrays and objects, and some constant values will appear in objects. 
+
+For example, instead of the form commonly seen:
+
+{
+  "level": 50,
+  "time": 10
+}
+
+SenML might use the following construct:
+
+[
+  {
+    "bn": "/example/light/"
+  },
+  {
+    "n": "level",
+    "v": 50
+  },
+  {
+    "n": "time",
+    "v": 10
+  }
+]
+
+A Batch Collection according to OCF may be structured like this:
+
+[
+  {
+    "href": "/example/light/level",
+    "rep": {
+      "level": 50
+    }
+  },
+  {
+    "href": "/example/light/time",
+    "rep": {
+      "time": 10
+    }
+  }
+]
+
+and an IPSO Smart Object on LWM2M:
+
+{
+  "bn": "/3001/0/",
+  "e": [
+    {
+      "n": "5044",
+      "v": 0.5
+    },
+    {
+      "n": "5002",
+      "v": 10.0
+    }
+  ]
+}
+
+
+The Protocol Binding template for each of these payloads will be structured according to the desired payload structure.
+
+[Examples of inputData and outputData elements for the various payloads]
+
+
+
+- Data Types and value constraints
+
+Examples of different types and value constraints between IPSO and OCF 
+
+
+
+- Media Types
+
+Define the serialization details and other rules
+
+"mediaType": "application/ocf+cbor"
+
+
+
+- Protocol Methods
+
+Different method names for similar methods across protocols, different methods used for the same interaction.
+
+There is an ontology for http which defines Methods and Options.
+
+"http:methodName": "GET"
+
+For the sake of consistency, we derive a similar ontology for each protocol, e.g. CoAP, MQTT.
+
+
+
+- Protocol Options
+
+Header options in HTTP, CoAP, MQTT sometimes must be included in a protocol binding in order to successfully interact with the underlying protocol. 
+
+"http:messageHeader":
+  [
+    {
+      "http:fieldName": "Accept",
+      "http:fieldValue": "application/json"
+    },
+    {
+      "http:fieldName": "Transfer-Encoding",
+      "http:fieldValue": "chunked"
+    }
+  ]
+
+
+(Processing Model and Runtime)
+
+inputData, outputData, value scaling are performed in the application library or adaptation layer
+
+link href, method, options, and mediaType are processed in a driver context isolated from the application
+
+Application fills in the inputData and sends with the link contents to the protocol driver
+
+Separate link operation completed in the protocol driver
+
+Binding for Secure communications, security
+
+Binding for Exposed Thing
+
+
+(Bindings for Properties)
+
+rel=get, rel=set
+
+observable 
+rel=observe with obs attribute
+
+
+(Bindings for Actions)
+
+rel=invoke, methodName = post
+
+
+(Bindings for Events)
+
+observable vs. subscription
+rel=subscribe in subscription link, obs attribute in observable link
+
+(Security Considerations)
+
+(Examples)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

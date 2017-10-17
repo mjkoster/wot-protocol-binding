@@ -16,8 +16,7 @@ Input Data Element for simple payload format
       {
         "name": "brightness",
         "value": {
-          "type": "integer",
-          "@type": "sch:levelvalue",
+          "type": ["integer", "sch:levelvalue" ],
           "min": 0,
           "max": 255
         }
@@ -25,8 +24,7 @@ Input Data Element for simple payload format
       {
         "name": "ramptime",
         "value": {
-          "type": "integer",
-          "@type": "sch:ramptimevalue",
+          "type": ["integer", "sch:ramptimevalue" ],
           "min": 0,
           "max": 65535
         }
@@ -74,8 +72,7 @@ Input Data Element for OCF Batch payload
               {
                 "name": "brightness",
                 "value": {
-                  "type": "integer",
-                  "@type": "sch:levelvalue",
+                  "type": ["integer", "sch:levelvalue" ],
                   "min": 0,
                   "max": 255
                 }
@@ -98,8 +95,7 @@ Input Data Element for OCF Batch payload
               {
                 "name": "ramptime",
                 "value": {
-                  "type": "integer",
-                  "@type": "sch:ramptimevalue",
+                  "type": ["integer", "sch:ramptimevalue" ],
                   "min": 0,
                   "max": 65535
                 }
@@ -154,8 +150,7 @@ Input Data Element for IPSO/LWM2M payload
               {
                 "name": "v",
                 "value": {
-                  "type": "float",
-                  "@type": "sch:levelvalue",
+                  "type": ["float", "sch:levelvalue"],
                   "min": 0.0,
                   "max": 1.0
                 }
@@ -167,8 +162,7 @@ Input Data Element for IPSO/LWM2M payload
               {
                 "name": "v",
                 "value": {
-                  "type": "float",
-                  "@type": "sch:ramptimevalue",
+                  "type": ["float", "sch:ramptimevalue"],
                   "min": 0.0,
                   "max": 6553.5
                 }
