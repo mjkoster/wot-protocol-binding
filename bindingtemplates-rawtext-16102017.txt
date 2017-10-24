@@ -24,7 +24,7 @@ The data definition language and schema of inputData and outputData elements is 
 
 Data Types and value constraints
 
-Simple data types and value constraints are already used in a layered and descriptive wayin WoT Thing Description. Additional forms of constraints are available to help adapt to the underlying data types.
+Simple data types and value constraints are currently used in a layered and descriptive way in WoT Thing Description. Additional forms of constraints are available to help adapt to the underlying data types.
 
 Media Types
 
@@ -128,6 +128,10 @@ Define the serialization details and other rules
 
 "mediaType": "application/ocf+cbor"
 
+non-registered media type e.g. x-<echonet> for custom drivers
+
+Also URI scheme will need to be customized to the target protocol
+
 
 
 - Protocol Methods
@@ -157,6 +161,9 @@ Header options in HTTP, CoAP, MQTT sometimes must be included in a protocol bind
       "http:fieldValue": "chunked"
     }
   ]
+
+Note: different links in a binding may need different header constructions
+
 
 
 (Processing Model and Runtime)
@@ -191,6 +198,8 @@ rel=invoke, methodName = post
 
 observable vs. subscription
 rel=subscribe in subscription link, obs attribute in observable link
+
+(Vocabulary) 
 
 (Security Considerations)
 

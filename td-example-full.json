@@ -1,0 +1,117 @@
+{
+  "@context": [
+    "http://w3c.github.io/wot/w3c-wot-td-context.jsonld",
+    "http://w3c.github.io/wot/w3c-wot-common-context.jsonld",
+	  {"iot": "http://iotschema.org/"}
+  ],
+  "@type": [ "Thing", "BuildingSpace" ],
+  "name": "Lamp",
+  "capability" : "iot:LightControl",
+  "interaction": [
+    {
+    "name": "Current brightness",
+    "@type": ["Property", " iot:CurrentDimmer"],
+    "outputdata":  {
+      "@type": [" iot:DimmerData "],
+      "type": "number"
+    },
+    "link": [
+      {
+        "href": "/example/light/currentdimmer",
+        "mediatype": "application/json"
+      }
+    ]
+    },
+  {
+    "name": "Set brightness level",
+    "@type": ["Action", " iot:SetDimmer"],
+    "inputdata":  {
+      "@type": [" iot:DimmerData "],
+      "type": "number"
+    },
+    "link": [
+      {
+        "href": "/example/light/setdimmer",
+        "mediatype": "application/json"
+      }
+    ]
+    }
+  ]
+}
+
+
+
+
+
+// exmples
+
+{
+  "@context": ["http://w3c.github.io/wot/w3c-wot-td-context.jsonld"],
+  "@type": ["Thing"],
+  "name": "ExampleLuminary",
+  "interaction": [
+      {
+          "@type": ["Property"],
+          "name": "status",
+          "outputData": {"type": "string"},
+          "writable": false,
+          "link": [{
+              "href": "coaps://mylamp.example.com:5683/status",
+              "mediaType": "application/json"
+          }]
+      },
+      {
+          "@type": ["Action"],
+          "name": "toggle",
+          "link": [{
+              "href": "coaps://mylamp.example.com:5683/toggle",
+              "mediaType": "application/json"
+          }]
+      },
+      {
+          "@type": ["Event"],
+          "name": "overheating",
+          "outputData": {"type": "string"},
+          "link": [{
+              "href": "coaps://mylamp.example.com:5683/oh",
+              "mediaType": "application/json"
+          }]
+      }
+  ]
+}
+
+"inputData": {
+  "type": "integer",
+  "minimum": 0,
+  "maximum": 255,
+}
+
+"inputData": {
+    "type": "array",
+    "items": {
+        "type" : "number",
+        "minimum": 0,
+        "maximum": 2047
+    },
+    "minItems" : 3,
+    "maxItems" : 3
+}
+
+"inputData": {
+    "type": "object",
+    "fields": [
+        {
+            "name": "id",
+            "value": {
+              "type": "integer"
+            }
+        },
+        {
+            "name": "name",
+            "value": {
+              "type": "string"
+            }
+        }
+    ],
+    "required": ["id"]
+}
