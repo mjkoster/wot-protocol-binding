@@ -39,7 +39,6 @@
       "name": "Switch On",
       "@type": ["Action", "iot:SwitchOn"],
       "outputdata":  {
-        "@type": ["iot:SwitchData"],
         "type": "boolean",
         "value": true
       },
@@ -52,9 +51,8 @@
     },
     {
       "name": "Switch Off",
-      "@type": ["Action", "iot:SwitchOn"],
+      "@type": ["Action", "iot:SwitchOff"],
       "outputdata":  {
-        "@type": ["iot:SwitchData"],
         "type": "boolean",
         "value": false
       },
