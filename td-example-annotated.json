@@ -1,0 +1,83 @@
+{
+  "@context": [
+    "http://w3c.github.io/wot/w3c-wot-td-context.jsonld",
+    "http://w3c.github.io/wot/w3c-wot-common-context.jsonld",
+	  {"iot": "http://iotschema.org/"}
+  ],
+  "@type": [ "Thing", "iot:Light", "iot:Dimmer", "iot:BinarySwitch" ],
+  "name": "Lamp",
+  "interaction": [
+    {
+      "name": "Switch State",
+      "@type": ["Property", "iot:SwitchStatus"],
+      "outputdata":  {
+        "@type": ["iot:SwitchData"],
+        "type": "boolean"
+      },
+      "link": [
+        {
+          "href": "/example/light/currentswitch",
+          "mediatype": "application/json"
+        }
+      ]
+    },
+    {
+      "name": "Current brightness",
+      "@type": ["Property", "iot:CurrentDimmer"],
+      "outputdata":  {
+        "@type": ["iot:DimmerData"],
+        "type": "number"
+      },
+      "link": [
+        {
+          "href": "/example/light/currentdimmer",
+          "mediatype": "application/json"
+        }
+      ]
+    },
+    {
+      "name": "Switch On",
+      "@type": ["Action", "iot:SwitchOn"],
+      "outputdata":  {
+        "@type": ["iot:SwitchData"],
+        "type": "boolean",
+        "value": true
+      },
+      "link": [
+        {
+          "href": "/example/light/currentswitch",
+          "mediatype": "application/json"
+        }
+      ]
+    },
+    {
+      "name": "Switch Off",
+      "@type": ["Action", "iot:SwitchOn"],
+      "outputdata":  {
+        "@type": ["iot:SwitchData"],
+        "type": "boolean",
+        "value": false
+      },
+      "link": [
+        {
+          "href": "/example/light/currentswitch",
+          "mediatype": "application/json"
+        }
+      ]
+    },
+    {
+      "name": "Set brightness level",
+      "@type": ["Action", "iot:SetDimmer"],
+      "inputdata":  {
+        "@type": ["iot:DimmerData"],
+        "type": "number"
+      },
+      "link": [
+        {
+          "href": "/example/light/currentdimmer",
+          "mediatype": "application/json"
+        }
+      ]
+    }
+  ]
+}

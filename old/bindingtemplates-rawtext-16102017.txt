@@ -132,6 +132,7 @@ non-registered media type e.g. x-<echonet> for custom drivers
 
 Also URI scheme will need to be customized to the target protocol
 
+"profile": "http://iotschema.org/protocols/ipso"
 
 
 - Protocol Methods
@@ -203,13 +204,34 @@ rel=subscribe in subscription link, obs attribute in observable link
 
 (Security Considerations)
 
-(Examples)
+(Examples of protocol bindings)
 
+OCF light and motion sensor
 
+LWM2M+IPSO over MQTT
 
+SmartThings Endpoint API
 
+(references)
 
+IANA link relations
+https://www.iana.org/assignments/link-relations/link-relations.xhtml
 
+"profile" link relation
+https://tools.ietf.org/html/rfc6906
+
+   A media type defines both the semantics and the serialization of a
+   specific type of content.  In many cases, media types have some
+   built-in extensibility or openness, so that specific instances of the
+   media type can layer additional semantics on top of the media type's
+   foundation.  In this case, a profile is the appropriate mechanism to
+   signal that the original semantics and processing model of the media
+   type still apply, but that an additional processing model can be used
+   to extract additional semantics. 
+   
+   
+
+HTTP vocabulary
 
 
 
