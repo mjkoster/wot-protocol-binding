@@ -4,6 +4,7 @@
     "http://w3c.github.io/wot/w3c-wot-common-context.jsonld",
 	  {"iot": "http://iotschema.org/"}
   ],
+  "base": "http://exampl.com/",
   "@type": [ "Thing", "iot:Light", "iot:Dimmer", "iot:BinarySwitch" ],
   "name": "Lamp",
   "interaction": [
@@ -12,12 +13,13 @@
       "@type": ["Property", "iot:SwitchStatus"],
       "outputdata":  {
         "type": "object",
+        "observable": "true",
         "fields": [
           {
             "name": "switch",
             "value": {
               "@type": ["iot:SwitchData"],
-              "type": ["boolean"],
+              "type": "boolean",
             }
           }
         ]
@@ -25,7 +27,20 @@
       "link": [
         {
           "href": "/example/light/currentswitch",
-          "mediatype": "application/json"
+          "mediatype": "application/json",
+          "rel": "td:getProperty",
+          "http:methodName": "http:get"
+        },
+        {
+          "href": "/example/light/currentswitch",
+          "mediatype": "application/json",
+          "rel": "td:setProperty",
+          "http:methodName": "http:post"
+        },
+        {
+          "href": "mqtt://example.com/example/light/currentswitch",
+          "rel": "td:observe",
+          "mqtt:methodName": "mqtt:subscribe"
         }
       ]
     },
@@ -34,11 +49,12 @@
       "@type": ["Property", "iot:CurrentDimmer"],
       "outputData": {
         "type": "object",
+        "observable": "true",
         "fields": [
           {
             "name": "brightness",
             "value": {
-              "type": ["integer"],
+              "type": "integer",
               "@type": ["iot:DimmerData" ],
               "min": 0,
               "max": 255
@@ -49,7 +65,52 @@
       "link": [
         {
           "href": "/example/light/currentdimmer",
-          "mediatype": "application/json"
+          "mediatype": "application/json",
+          "rel": "td:getProperty",
+          "http:methodName": "http:get"
+        },
+        {
+          "href": "/example/light/currentdimmer",
+          "mediatype": "application/json",
+          "rel": "td:setProperty",
+          "http:methodName": "http:post"
+        },
+        {
+          "href": "mqtt://example.com/example/light/currentdimmer",
+          "rel": "td:observe",
+          "mqtt:methodName": "mqtt:subscribe"
+        }
+      ]
+    },
+    {
+      "name": "Transition Time",
+      "@type": ["Property", "iot:TransitionTIme"],
+      "outputData": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "ramptime",
+            "value": {
+              "type": "integer",
+              "@type": ["iot:TransitionTimeData" ],
+              "min": 0,
+              "max": 255
+            }
+          }
+        ]
+      },
+      "link": [
+        {
+          "href": "/example/light/ramptime",
+          "mediatype": "application/json",
+          "rel": "td:getProperty",
+          "http:methodName": "http:get"
+        },
+        {
+          "href": "/example/light/ramptime",
+          "mediatype": "application/json",
+          "rel": "td:setProperty",
+          "http:methodName": "http:post"
         }
       ]
     },
@@ -68,13 +129,15 @@
       "link": [
         {
           "href": "/example/light/currentswitch",
-          "mediatype": "application/json"
+          "mediatype": "application/json",
+          "rel": "td:invokeAction",
+          "http:methodName": "http:post"
         }
       ]
     },
     {
       "name": "Switch Off",
-      "@type": ["Action", "iot:SwitchOn"],
+      "@type": ["Action", "iot:SwitchOff"],
       "outputdata":  {
         "type": "object",
         "fields": [
@@ -87,7 +150,9 @@
       "link": [
         {
           "href": "/example/light/currentswitch",
-          "mediatype": "application/json"
+          "mediatype": "application/json",
+          "rel": "td:invokeAction",
+          "http:methodName": "http:post"
         }
       ]
     },
@@ -100,10 +165,19 @@
           {
             "name": "brightness",
             "value": {
-              "type": ["integer"],
+              "type": "integer",
               "@type": ["iot:DimmerData"],
               "min": 0,
               "max": 255
+            }
+          },
+          {
+            "name": "ramptime",
+            "value": {
+              "type": "integer",
+              "@type": ["iot:RampTimeData"],
+              "min": 0,
+              "max": 65535
             }
           }
         ]
@@ -111,7 +185,9 @@
       "link": [
         {
           "href": "/example/light/currentdimmer",
-          "mediatype": "application/json"
+          "mediatype": "application/json",
+          "rel": "td:invokeAction",
+          "http:methodName": "http:post"
         }
       ]
     }
