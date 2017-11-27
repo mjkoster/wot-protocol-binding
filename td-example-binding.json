@@ -11,10 +11,10 @@
     {
       "name": "Switch State",
       "@type": ["Property", "iot:SwitchStatus"],
-      "outputdata":  {
+      "outputData":  {
         "type": "object",
         "observable": "true",
-        "fields": [
+        "field": [
           {
             "name": "switch",
             "value": {
@@ -50,7 +50,7 @@
       "outputData": {
         "type": "object",
         "observable": "true",
-        "fields": [
+        "field": [
           {
             "name": "brightness",
             "value": {
@@ -87,7 +87,7 @@
       "@type": ["Property", "iot:TransitionTIme"],
       "outputData": {
         "type": "object",
-        "fields": [
+        "field": [
           {
             "name": "ramptime",
             "value": {
@@ -103,23 +103,23 @@
         {
           "href": "/example/light/ramptime",
           "mediatype": "application/json",
-          "rel": "td:getProperty",
+          "rel": "td:readProperty",
           "http:methodName": "http:get"
         },
         {
           "href": "/example/light/ramptime",
           "mediatype": "application/json",
-          "rel": "td:setProperty",
+          "rel": "td:writeProperty",
           "http:methodName": "http:post"
         }
       ]
     },
     {
       "name": "Switch On",
-      "@type": ["Action", "iot:SwitchOn"],
+      "@type": ["Action", "iot:TurnOn"],
       "outputdata":  {
         "type": "object",
-        "fields": [
+        "field": [
           {
             "name": "switch",
             "value": true
@@ -137,10 +137,10 @@
     },
     {
       "name": "Switch Off",
-      "@type": ["Action", "iot:SwitchOff"],
+      "@type": ["Action", "iot:TurnOff"],
       "outputdata":  {
         "type": "object",
-        "fields": [
+        "field": [
           {
             "name": "switch",
             "value": false
@@ -161,7 +161,7 @@
       "@type": ["Action", "iot:SetDimmer"],
       "inputData": {
         "type": "object",
-        "fields": [
+        "field": [
           {
             "name": "brightness",
             "value": {
