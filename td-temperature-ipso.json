@@ -1,0 +1,65 @@
+{
+  "@context": [
+    "http://w3c.github.io/wot/w3c-wot-td-context.jsonld",
+    "http://w3c.github.io/wot/w3c-wot-common-context.jsonld",
+	  {"iot": "http://iotschema.org/"}
+  ],
+  "base": "http://example.net:1880/",
+  "@type": [ "Thing", "iot:temperatureCapability" ],
+  "name": "Temperature Sensor",
+  "interaction": [
+    {
+      "name": "Temperature",
+      "@type": ["Property", "iot:temperatureProperty"],
+      "outputData":  {
+        "type": "array",
+        "observable": "true",
+        "item": [
+          {
+            "type": "object",
+            "field": [
+              {
+                "name": "n",
+                "value": "5700"
+              },
+              {
+                "name": "v",
+                "value": {
+                  "@type": ["iot:temperatureData"],
+                  "type": "number",
+                  "minimum": -100,
+                  "maximum": 150,
+                  "unit": "Fahrenheit"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "form": [
+        {
+          "href": "3303/0",
+          "mediatype": "application/json",
+          "rel": "td:getProperty",
+          "http:methodName": "http:get"
+        },
+        {
+          "href": "3303/0",
+          "mediatype": "application/json",
+          "rel": "td:setProperty",
+          "http:methodName": "http:post"
+        },
+        {
+          "href": "mqtt://example.net:1883/3303/0",
+          "rel": "td:observe",
+          "mqtt:methodName": "mqtt:subscribe"
+        },
+        {
+          "href": "mqtt://example.net:1883/3303/0",
+          "rel": "td:observeCancel",
+          "mqtt:methodName": "mqtt:unsubscribe"
+        }
+      ]
+    }
+  ]
+}

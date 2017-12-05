@@ -1,0 +1,57 @@
+{
+  "@context": [
+    "http://w3c.github.io/wot/w3c-wot-td-context.jsonld",
+    "http://w3c.github.io/wot/w3c-wot-common-context.jsonld",
+	  {"iot": "http://iotschema.org/"}
+  ],
+  "base": "http://example.net:1880/",
+  "@type": [ "Thing", "iot:motionCapability" ],
+  "name": "Motion Sensor",
+  "interaction": [
+    {
+      "name": "Motion State",
+      "@type": ["Property", "iot:motionProperty"],
+      "outputData":  {
+        "type": "array",
+        "observable": "true",
+        "item": [
+          {
+            "type": "object",
+            "field": [
+              {
+                "name": "n",
+                "value": "5700"
+              },
+              {
+                "name": "vb",
+                "value": {
+                  "@type": ["iot:motionData"],
+                  "type": "boolean"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "form": [
+        {
+          "href": "3300/2",
+          "mediatype": "application/json",
+          "rel": "td:getProperty",
+          "http:methodName": "http:get"
+        },
+        {
+          "href": "3300/2",
+          "mediatype": "application/json",
+          "rel": "td:setProperty",
+          "http:methodName": "http:post"
+        },
+        {
+          "href": "mqtt://example.net:1883/3300/2",
+          "rel": "td:observe",
+          "mqtt:methodName": "mqtt:subscribe"
+        }
+      ]
+    }
+  ]
+}

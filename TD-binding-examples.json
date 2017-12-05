@@ -59,7 +59,6 @@
     "coap:methodName": "GET",
     "coap:methodCode": "0.01",
     "coap:mthd": "http://www.w3.org/xxxx/coap-methods#GET",
-
     "coap:MessagelHeader": [
       {
         "coap:hdrName": "http://www.w3.org/xxxx/coap-headers#accept",
@@ -78,7 +77,7 @@
         "coap:fieldName": "Observe",
         "coap:fieldCodeNumber": 6,
         "coap:fieldValue": 0
-      },
+      }
     ]
 
   }

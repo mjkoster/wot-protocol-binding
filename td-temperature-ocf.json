@@ -1,0 +1,131 @@
+{
+  "@context": [
+    "http://w3c.github.io/wot/w3c-wot-td-context.jsonld",
+    "http://w3c.github.io/wot/w3c-wot-common-context.jsonld",
+	  {"iot": "http://iotschema.org/"}
+  ],
+  "base": "coap://example.net:5683/",
+  "@type": [ "Thing", "iot:temperatureCapability" ],
+  "name": "Temperature Sensor",
+  "interaction": [
+    {
+      "name": "Temperature",
+      "@type": ["Property", "iot:temperatureProperty"],
+      "inputData":  {
+        "type": "object",
+        "field": [
+          {
+            "name": "temperature",
+            "@type": ["iot:temperatureData"],
+            "type": "number",
+            "minimum": -50,
+            "maximum": 100,
+            "unit": "Celsius"
+          }
+        ]
+      },
+      "outputData":  {
+        "type": "object",
+        "observable": "true",
+        "field": [
+          {
+            "name": "temperature",
+            "@type": ["iot:temperatureData"],
+            "type": "number",
+            "minimum": -50,
+            "maximum": 100,
+            "unit": "Celsius"
+          }
+        ]
+      },
+      "form": [
+        {
+          "href": "temperature?rt=oic.r.temperature&if=oic.if.s",
+          "mediatype": "application/vnd.ocf+cbor",
+          "rel": "td:getProperty",
+          "coap:methodName": "coap:get",
+          "coap:methodCode": "0.01",
+          "coap:MessagelHeader": [
+            {
+              "coap:fieldName": "Accept",
+              "coap:fieldCodeNumber": 17,
+              "coap:fieldValue": 10000
+            },
+            {
+              "coap:fieldName": "OCF-Accept-Content-Format-Version",
+              "coap:fieldCodeNumber": 2049,
+              "coap:fieldValue": "1.1.0"
+            }
+          ]
+        },
+        {
+          "href": "temperature?rt=oic.r.temperature&if=oic.if.a",
+          "mediatype": "application/vnd.ocf+cbor",
+          "rel": "td:setProperty",
+          "coap:methodName": "coap:post",
+          "coap:methodCode": "0.02",
+          "coap:MessagelHeader": [
+            {
+              "coap:fieldName": "Content-Format",
+              "coap:fieldCodeNumber": 12,
+              "coap:fieldValue": 10000
+            },
+            {
+              "coap:fieldName": "OCF-Content-Format-Version",
+              "coap:fieldCodeNumber": 2053,
+              "coap:fieldValue": "1.1.0"
+            }
+          ]
+        },
+        {
+          "href": "temperature?rt=oic.r.temperature&if=oic.if.s",
+          "mediatype": "application/vnd.ocf+cbor",
+          "rel": "td:observe",
+          "coap:methodName": "coap:get",
+          "coap:methodCode": "0.01",
+          "coap:MessagelHeader": [
+            {
+              "coap:fieldName": "Accept",
+              "coap:fieldCodeNumber": 17,
+              "coap:fieldValue": 10000
+            },
+            {
+              "coap:fieldName": "OCF-Accept-Content-Format-Version",
+              "coap:fieldCodeNumber": 2049,
+              "coap:fieldValue": "1.1.0"
+            },
+            {
+              "coap:fieldName": "Observe",
+              "coap:fieldCodeNumber": 6,
+              "coap:fieldValue": 0
+            }
+          ]
+        },
+        {
+          "href": "temperature",
+          "mediatype": "application/vnd.ocf+cbor",
+          "rel": "td:observeCancel",
+          "coap:methodName": "coap:get",
+          "coap:methodCode": "0.01",
+          "coap:MessagelHeader": [
+            {
+              "coap:fieldName": "Accept",
+              "coap:fieldCodeNumber": 17,
+              "coap:fieldValue": 10000
+            },
+            {
+              "coap:fieldName": "OCF-Accept-Content-Format-Version",
+              "coap:fieldCodeNumber": 2049,
+              "coap:fieldValue": "1.1.0"
+            },
+            {
+              "coap:fieldName": "Observe",
+              "coap:fieldCodeNumber": 6,
+              "coap:fieldValue": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
