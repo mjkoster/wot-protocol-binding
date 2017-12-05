@@ -41,12 +41,6 @@
           "http:methodName": "http:get"
         },
         {
-          "href": "3300/2",
-          "mediatype": "application/json",
-          "rel": "td:setProperty",
-          "http:methodName": "http:post"
-        },
-        {
           "href": "mqtt://example.net:1883/3300/2",
           "rel": "td:observe",
           "mqtt:methodName": "mqtt:subscribe"
