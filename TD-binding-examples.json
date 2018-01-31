@@ -59,24 +59,24 @@
     "coap:methodName": "GET",
     "coap:methodCode": "0.01",
     "coap:mthd": "http://www.w3.org/xxxx/coap-methods#GET",
-    "coap:MessagelHeader": [
+    "coap:MessageOptions": [
       {
-        "coap:hdrName": "http://www.w3.org/xxxx/coap-headers#accept",
-        "coap:fieldName": "Accept",
-        "coap:fieldCodeNumber": 17,
-        "coap:fieldValue": 10000
+        "coap:optName": "http://www.w3.org/xxxx/coap-headers#accept",
+        "coap:optionName": "Accept",
+        "coap:optionNumber": 17,
+        "coap:optionValue": 10000
       },
       {
-        "coap:hdrName": "http://www.w3.org/xxxx/coap-headers#ocf-accept-version",
-        "coap:fieldName": "OCF-Accept-Content-Format-Version",
-        "coap:fieldCodeNumber": 2049,
-        "coap:fieldValue": "1.1.0"
+        "coap:optName": "http://www.w3.org/xxxx/coap-headers#ocf-accept-version",
+        "coap:optionName": "OCF-Accept-Content-Format-Version",
+        "coap:optionNumber": 2049,
+        "coap:optionValue": "1.1.0"
       },
       {
-        "coap:hdrName": "http://www.w3.org/xxxx/coap-headers#observe",
-        "coap:fieldName": "Observe",
-        "coap:fieldCodeNumber": 6,
-        "coap:fieldValue": 0
+        "coap:optName": "http://www.w3.org/xxxx/coap-headers#observe",
+        "coap:optionName": "Observe",
+        "coap:optionNumber": 6,
+        "coap:optionValue": 0
       }
     ]
 
@@ -84,6 +84,9 @@
 ],
 
 { "comment": "MQTT example based on HTTP pattern" },
+//connect header fields: willFlag, willQOS, willRetain, cleanSession
+// keepalive time
+// also username and password for basic auth go in the header
 
 [
   {
