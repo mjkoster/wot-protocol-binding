@@ -1,0 +1,39 @@
+{
+  "name": "Current brightness",
+  "@type": ["Property", "iot:CurrentDimmer"],
+  "outputData": {
+    "type": "object",
+    "observable": "true",
+    "field": [
+      {
+        "name": "brightness",
+        "type": "integer",
+        "@type": ["iot:DimmerData" ],
+        "minimum": 0,
+        "maximum": 255
+      }
+    ]
+  },
+  "form": []
+},
+
+{
+  "name": "Current brightness",
+  "@type": ["Property", "iot:CurrentDimmer"],
+  "schema": {
+    "type": "object",
+    "observable": "true",
+    "field": [
+      {
+        "name": "brightness",
+        "@type": ["iot:DimmerData" ],
+        "schema": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255
+        }
+      }
+    ]
+  },
+  "form": []
+},
