@@ -1,0 +1,278 @@
+// Example Action pattern with a dynamically created interaction instance
+
+{
+  "actions": {
+    "setlevel": {
+      "@type": ["Action", "iot:SetLevel"],
+      "input": {
+        "type": "objecr",
+        "properties": {
+          "level": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 255,
+            "@type": ["iot:LevelData"]
+          },
+          "transitiontime": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 65535,
+            "@type": ["iot:TransitionTimeData"]
+          }
+        },
+        "form": [
+          {
+            "href": "/example/light/setlevel",
+            "rel": ["invokeAction"],
+            "inputMediaType": "application/json",
+            "outputMediaType": "application/td+json",
+            "http:methodName": "POST"
+          }
+        ]
+      }
+    }
+  }
+}
+
+// outputMediaType describes the returned Payload
+
+// The returned TD format item describes the dynamic interaction,
+// which allows reading or subscribing to the status or cancelling the action
+
+{
+  "@type": ["iot:ActionInstance"],
+  "properties": {
+    "status": {
+      "@type": ["iot:ActionStatus"],
+      "type": "object",
+        "properties":{
+          "currentLevel": {
+            "type": "number",
+            "@type": ["iot:LevelData"]
+          },
+          "remainingTime": {
+            "type": "number",
+            "@type": ["iot:TransitionTimeData"]
+          },
+          "status": {
+            "type": "string",
+            "@type": ["iot:ActionStatusData"]
+          }
+        },
+      "form": [
+        {
+          "href": "/example/light/f3cca270",
+          "mediaType": "application/json",
+          "rel": ["readProperty", "observeProperty"]
+        }
+      ]
+    }
+  },
+  "actions": {
+    "cancel":{
+      "@type": "CancelAction",
+      "form": [
+        {
+          "href": "/example/light/f3cca270",
+          "rel": ["cancelAction"],
+          "http:methodName": "DELETE"
+        }
+      ]
+    }
+  }
+}
+
+
+// "simple" event notification using websockets, one event per websocket
+
+{
+  "events":{
+    "powerstate": {
+      "@type": ["Event", "iot:powerstatechange"],
+      "type": "object",
+      "properties": {
+        "newstate": {
+          "type": "string",
+          "@type": ["iot:PowerStateData"]
+        }
+      },
+      "form":[
+        {
+          "href": "ws://192.168.1.1:53977",
+          "mediaType": "applicatio/json",
+          "rel": ["subscribeEvent"]
+        }
+      ]
+    }
+  }
+}
+
+// Example notification payload on the websocket:
+
+{"newstate":"powerstate-low-voltage"}
+
+// depends on some special pattern to terminate the payload, e.g. whitespace or line
+
+
+// EventSource over http pattern
+
+{
+  "events":{
+    "powerstate": {
+      "label": "powerstate",
+      "@type": ["Event", "iot:powerstatechange"],
+      "type": "object",
+      "properties": {
+        "newstate": {
+          "type": "string",
+          "@type": ["iot:PowerStateData"]
+        }
+      },
+      "form":[
+        {
+          "href": "http://192.168.1.1",
+          "mediaType": "application/json",
+          "http:headers":
+            [
+              {
+                "http:fieldName": "Accept",
+                "http:fieldValue": "text/event-stream"
+              }
+            ],
+          "rel": ["subscribeEvent"],
+          "subProtocol": "EventSource"
+        }
+      ]
+    }
+  }
+}
+
+// response on SSE
+
+event:powerstate
+data:{"newstate":"powerstate-low-voltage"}
+
+
+// Event notification using a multiplexed event stream on a websocket using the EventSource subProtocol
+
+{
+  "events":{
+    "powerstate": {
+      "label": "powerstate",
+      "@type": ["Event", "iot:powerstatechange"],
+      "type": "object",
+      "properties": {
+        "newstate": {
+          "type": "string",
+          "@type": ["iot:PowerStateData"]
+        }
+      },
+      "form":[
+        {
+          "href": "ws://192.168.1.1",
+          "mediaType": "application/json",
+          "rel": ["subscribeEvent"],
+          "subProtocol": "EventSource"
+        }
+      ]
+    }
+  }
+}
+
+// example payload recieved using the EventSource subprotocol over websockets
+
+event:powerstate
+data:{"newstate":"powerstate-low-voltage"}
+
+
+
+// Webhook patterns
+// Webhooks use the Action pattern with a target action of "CreateWebhook"
+// Webhooks are created on one or more webhook creation resources
+
+{
+  "actions":{
+    "createwebhook":{
+      "@type": ["CreateWebHook"],
+      "input":{
+        "type": "object",
+        "properties":{
+          "sourceEvent": {
+            "type": "string",
+            "@type": "WebHookSource",
+            "description": "the local event source: name or label"
+          },
+          "targetURI": {
+            "type": "string",
+            "@type": "WebHookDestination",
+            "description": "the URI events are to be delivered to"
+          },
+          "targetMethod": {
+            "type": "string",
+            "@type": "WebHookMethod",
+            "description": "transfer protocol method to use"
+          }
+        }
+      },
+      "form":[
+        {
+          "href": "/example/webhooks/",
+          "http:methodName": "POST",
+          "rel": ["invokeAction"],
+          "inputMediaType": "application/json",
+          "outputMediaType": "application/td+json"
+        }
+      ]
+    }
+  }
+}
+
+
+// The returned instance descriptor for a webhook
+{
+  "@type": ["WebHook"],
+  "properties":{
+    "status": {
+      "type": "object",
+      "properties": {
+        "sourceEvent": {
+          "type": "string",
+          "@type": "WebHookSource",
+          "description": "the local event source: name or label"
+        },
+        "targetURI": {
+          "type": "string",
+          "@type": "WebHookDestination",
+          "description": "the URI events are to be delivered to"
+        },
+        "targetMethod": {
+          "type": "string",
+          "@type": "WebHookMethod",
+          "description": "transfer protocol method to use"
+        },
+        "lastError": {
+          "type": "string",
+          "@type": "http:errorType"
+        }
+      },
+      "form": [
+        {
+          "href": "/example/webhooks/fc33af7d",
+          "rel": ["readProperty", "observeProperty"]
+        }
+      ]
+    }
+  },
+  "actions":{
+    "remove": {
+      "@type": ["DeleteWebHook"],
+      "form": [
+        {
+          "href": "/example/webhooks/fc33af7d",
+          "rel": ["deleteInteraction"],
+          "http:methodName": "DELETE"
+        }
+      ]
+    }
+  }
+}
