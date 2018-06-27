@@ -25,7 +25,7 @@
             "href": "/example/light/setlevel",
             "rel": ["invokeAction"],
             "inputMediaType": "application/json",
-            "outputMediaType": "application/td+json",
+            "outputMediaType": "application/td+json", "application/sd+json"
             "http:methodName": "POST"
           }
         ]
@@ -52,14 +52,14 @@
           },
           "remainingTime": {
             "type": "number",
-            "@type": ["iot:TransitionTimeData"]
+            "@type": ["iot:RemainingTransitionTimeData", "..."]
           },
           "status": {
             "type": "string",
             "@type": ["iot:ActionStatusData"]
           }
         },
-      "form": [
+      "forms": [
         {
           "href": "/example/light/f3cca270",
           "mediaType": "application/json",
@@ -71,10 +71,10 @@
   "actions": {
     "cancel":{
       "@type": "CancelAction",
-      "form": [
+      "forms": [
         {
           "href": "/example/light/f3cca270",
-          "rel": ["cancelAction"],
+          "rel": ["invokeAction"],
           "http:methodName": "DELETE"
         }
       ]
