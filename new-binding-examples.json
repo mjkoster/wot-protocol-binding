@@ -20,12 +20,12 @@
             "@type": ["iot:TransitionTimeData"]
           }
         },
-        "form": [
+        "forms": [
           {
             "href": "/example/light/setlevel",
             "rel": ["invokeAction"],
             "inputMediaType": "application/json",
-            "outputMediaType": "application/td+json", "application/sd+json"
+            "outputMediaType": "application/sd+json",
             "http:methodName": "POST"
           }
         ]
@@ -269,7 +269,7 @@ data:{"newstate":"powerstate-low-voltage"}
       "form": [
         {
           "href": "/example/webhooks/fc33af7d",
-          "rel": ["deleteInteraction"],
+          "rel": ["invokeAction"],
           "http:methodName": "DELETE"
         }
       ]
