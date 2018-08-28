@@ -276,3 +276,46 @@ data:{"newstate":"powerstate-low-voltage"}
     }
   }
 }
+
+// URI Template example
+
+{
+  "@type": ["Action"],
+  "name": "LeftDown",
+  "uriSchema": {
+    "p" : { "type": "integer", "minimum": 0, "maximum": 16, "@type": "example:SomeKindOfAngle" },
+    "d" : { "type": "integer", "minimum": 0, "maximum": 1, "@type": "example:Direction" }
+    }
+  },
+  "form": [{
+    "http:method": "GET",
+    "href" : "http://192.168.1.25/left{?p,d}"
+  }]
+}
+
+// URI Template example
+
+"actions": {
+  "turnon": {
+    "@type": "iot:switchOnAction",
+    "uriParameters": {
+      "on": {"type": "boolean", "@type": "iot:binarySwitchData", "value": true}
+    },
+    "form":[{
+      "href": "http://10.0.0.1/switch{?on}",
+      "http:method": "GET",
+      "rel": "invokeAction",
+    }]
+  },
+  "turnoff": {
+    "@type": "iot:switchOffAction",
+    "uriParameters": {
+      "on": {"type": "boolean", "@type": "iot:binarySwitchData", "value": false}
+    },
+    "form":[{
+      "href": "http://10.0.0.1/switch{?on}",
+      "http:method": "GET",
+      "rel": "invokeAction",
+    }]
+  }
+}
